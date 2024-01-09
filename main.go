@@ -14,7 +14,7 @@ func main() {
 
 	//solve terminal error
 
-	kubeconfig := flag.String("kubeconfig", "~/.kube/config", "location to your kubeconfig file")
+	kubeconfig := flag.String("kubeconfig", "/c/Users/91911/.kube/config", "location to your kubeconfig file")
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 
 	if err != nil {

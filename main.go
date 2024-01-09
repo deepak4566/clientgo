@@ -1,40 +1,43 @@
 package main
 
 import (
-	"fmt"
+	"context"
 	"flag"
-	"k8s.io/client-go/tools/clientcmd"
+	"fmt"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
-
-	
-	
-
+	"k8s.io/client-go/tools/clientcmd"
 )
 
-func main(){
+func main() {
 
-	kubeconfig := flag.String("kubeconfig","/home/deepak/.kube/config","location to your kubeconfig file")
+	//solve terminal error
+
+	kubeconfig := flag.String("kubeconfig", "~/.kube/config", "location to your kubeconfig file")
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 
 	if err != nil {
-		panic(err)
+		// Handle error here.
+		// TODO: Add error handling code.
 	}
-	
 
 	clientset, err := kubernetes.NewForConfig(config)
 
 	if err != nil {
-		panic(err)
+		// Handle error here.
+		// TODO: Add error handling code.
+	}
+	fmt.Println(clientset)
+
+	ctx := context.Background()
+
+	pods, err := clientset.CoreV1().Pods("default").List(ctx, metav1.ListOptions{})
+
+	if err != nil {
+		//null
 	}
 
-	
-
-	pods := clientset.CoreV1().pods("default").List(Context.Background(),metav1.ListOptions{})
-     
 	fmt.Println(pods)
-
-
-
-
 
 }
